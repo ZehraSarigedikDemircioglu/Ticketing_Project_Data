@@ -39,7 +39,7 @@ public class UserController {
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("roles", roleService.listAllRoles());
-            model.addAttribute("users", userService.findAll());
+            model.addAttribute("users", userService.listAllUsers());
 
             return "/user/create";
 
