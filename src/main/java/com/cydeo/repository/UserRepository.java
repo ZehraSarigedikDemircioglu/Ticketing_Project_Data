@@ -4,6 +4,7 @@ import com.cydeo.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
@@ -13,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             // if all steps are NOT successfully completed
             // rollback means if any error happened in any step, everything is going back.
     void deleteByUserName(String username);
+
+    List<User> findByRoleDescriptionIgnoreCase(String description);
 }
