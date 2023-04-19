@@ -2,10 +2,7 @@ package com.cydeo.entity;
 
 import lombok.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,6 +19,7 @@ public class BaseEntity {
     private LocalDateTime lastUpdateDateTime;
     private Long lastUpdateUserId;
 
+    @PrePersist
     private void onPrePersist() {
         this.insertDateTime = LocalDateTime.now();
         this.lastUpdateDateTime = LocalDateTime.now();
@@ -29,6 +27,7 @@ public class BaseEntity {
         this.lastUpdateUserId = 1L;
     }
 
+    @PreUpdate
     private void onPreUpdate() {
         this.lastUpdateDateTime = LocalDateTime.now();
         this.lastUpdateUserId = 1L;
