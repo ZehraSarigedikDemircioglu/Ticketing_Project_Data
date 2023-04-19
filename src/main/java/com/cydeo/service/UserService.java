@@ -11,4 +11,6 @@ public interface UserService {
     void save(UserDTO user);
     void deleteByUserName(String username);
     UserDTO update(UserDTO user);
+    void delete(String username); // added this method later to make sure we want to save "deleted username" in the db.
+    // to prevent confliction, i created seperate this delete method instead of using deleteByUserName(String username)
 }
