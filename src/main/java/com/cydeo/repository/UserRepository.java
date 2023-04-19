@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // get user based on username
     User findByUserName(String username);
     @Transactional // before we add this annotation, it gave me "transaction" error, it needs to be "rollback"
-            // if all steps are successfully completed
+            // if all steps are NOT successfully completed
             // rollback means if any error happened in any step, everything is going back.
     void deleteByUserName(String username);
 }
