@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         // save the object in the db
 
         User user = userRepository.findByUserName(username);
-        user.setDeleted(true);
+        user.setIsDeleted(true);
         userRepository.save(user);
 
     }
