@@ -15,9 +15,8 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "projects")
 @Where(clause = "is_deleted=false")
-
-public class Project extends BaseEntity{
-
+public class Project extends BaseEntity {
+    @Column(unique = true) // make unique for each project code
     private String projectCode;
     private String projectName;
 
