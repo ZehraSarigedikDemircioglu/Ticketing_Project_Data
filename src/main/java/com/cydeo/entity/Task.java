@@ -4,17 +4,17 @@ import com.cydeo.enums.Status;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Lazy;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@Table(name = "tables")
+@Table(name = "tasks")
+@Where(clause = "is_deleted=false")
 public class Task extends BaseEntity{
 
     private String taskSubject;
@@ -24,7 +24,9 @@ public class Task extends BaseEntity{
     @Column(columnDefinition = "DATE")
     private LocalDate assignedDate;
     @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "employee_id")
     private User assignedEmployee;
     @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "project_id")
     private Project project;
 }
