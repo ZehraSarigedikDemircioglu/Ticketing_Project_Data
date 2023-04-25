@@ -5,6 +5,9 @@ import com.cydeo.enums.Status;
 //import com.cydeo.service.ProjectService;
 //import com.cydeo.service.TaskService;
 //import com.cydeo.service.UserService;
+import com.cydeo.service.ProjectService;
+import com.cydeo.service.TaskService;
+import com.cydeo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,18 +28,18 @@ public class TaskController {
 //        this.projectService = projectService;
 //        this.taskService = taskService;
 //    }
-//
-//    @GetMapping("/create")
-//    public String createTask(Model model) {
-//
+
+    @GetMapping("/create")
+    public String createTask(Model model) {
+
 //        model.addAttribute("task", new TaskDTO());
 //        model.addAttribute("projects", projectService.findAll());
 //        model.addAttribute("employees", userService.findEmployees());
 //        model.addAttribute("tasks", taskService.findAll());
-//
-//        return "/task/create";
-//
-//    }
+
+        return "/task/create";
+
+    }
 //
 //    @PostMapping("/create")
 //    public String insertTask(@Valid @ModelAttribute("task") TaskDTO task, BindingResult bindingResult, Model model) {
