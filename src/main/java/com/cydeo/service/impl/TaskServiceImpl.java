@@ -4,11 +4,13 @@ import com.cydeo.dto.TaskDTO;
 import com.cydeo.entity.Project;
 import com.cydeo.entity.Task;
 import com.cydeo.entity.User;
+import com.cydeo.enums.Status;
 import com.cydeo.mapper.TaskMapper;
 import com.cydeo.repository.TaskRepository;
 import com.cydeo.service.TaskService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,29 +32,32 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void save(TaskDTO task) {
+
+        task.setTaskStatus(Status.OPEN);
+        task.setAssignedDate(LocalDate.now());
         taskRepository.save(taskMapper.convertToEntity(task));
     }
 
     @Override
     public void update(TaskDTO task) {
 
-        // Find current user
-        Task task1 = taskRepository.findById(task.getId());
-        // Map update user dto to entity object
-        Task convertedTask = taskMapper.convertToEntity(task);
-        // Set id to the converted object
-        convertedTask.setId(task1.getId());
-        // Save the updated user in the db
-        taskRepository.save(convertedTask);
-        return findByUserName(task.getId());
+//        // Find current user
+//        Task task1 = taskRepository.findById(task.getId());
+//        // Map update user dto to entity object
+//        Task convertedTask = taskMapper.convertToEntity(task);
+//        // Set id to the converted object
+//        convertedTask.setId(task1.getId());
+//        // Save the updated user in the db
+//        taskRepository.save(convertedTask);
+//        return findByUserName(task.getId());
 
     }
 
     @Override
     public void delete(Long id) {
-        Task task = taskRepository.findById(id);
+        Task task = taskRepository.findById(id).orElseThrow(); // since this give me optional
         task.setIsDeleted(true);
-        taskRepository.save(id);
+        taskRepository.save(task);
     }
 
     @Override
@@ -60,8 +65,4 @@ public class TaskServiceImpl implements TaskService {
         return null;
     }
 
-    @Override
-    public TaskDTO getByTaskId(Long id) {
-        return null;
-    }
 }
