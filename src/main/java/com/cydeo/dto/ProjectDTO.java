@@ -14,6 +14,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ProjectDTO {
 
+    private Long id; // this id can map to the entity, if we dont put, it is null, ang giving this error
+    // TransientPropertyValueException: object references an unsaved transient instance -
+    // save the transient instance before flushing : com.cydeo.entity.Task.project -> com.cydeo.entity.Project;
+    // nested exception is java.lang.IllegalStateException: org.hibernate.TransientPropertyValueException:
+    // object references an unsaved transient instance - save the transient instance before flushing :
+    // com.cydeo.entity.Task.project -> com.cydeo.entity.Project
+
     @NotBlank
     private String projectName;
 
