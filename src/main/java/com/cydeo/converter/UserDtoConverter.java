@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 //@ConfigurationPropertiesBinding
 public class UserDtoConverter implements Converter<String, UserDTO> {
 
+    // why we need converter? In the user create page, there is "choose a role dropdown", so we need role object
+
     UserService userService;
 
     public UserDtoConverter(UserService userService) {
