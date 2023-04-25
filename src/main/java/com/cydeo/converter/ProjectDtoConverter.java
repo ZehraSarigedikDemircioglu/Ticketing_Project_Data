@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 //@ConfigurationPropertiesBinding
 public class ProjectDtoConverter implements Converter<String, ProjectDTO> {
 
+    // why we need converter? In the project create page, we need user object to select assigned manager.
+
     ProjectService projectService;
 
     public ProjectDtoConverter(ProjectService projectService) {
