@@ -62,7 +62,6 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TaskDTO getById(Long id) {
-        return null;
+        return taskMapper.convertToDTO(taskRepository.findById(id).orElseThrow());
     }
-
 }
