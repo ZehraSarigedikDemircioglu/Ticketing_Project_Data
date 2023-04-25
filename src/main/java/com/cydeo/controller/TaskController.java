@@ -100,12 +100,12 @@ public class TaskController {
             return "/task/update";
 
         }
-//
-//        taskService.update(task);
-//
-//        return "redirect:/task/create";
-//
-//    }
+
+        taskService.update(task);
+
+        return "redirect:/task/create";
+
+    }
 //
 //    @GetMapping("/employee/pending-tasks")
 //    public String employeePendingTasks(Model model) {
