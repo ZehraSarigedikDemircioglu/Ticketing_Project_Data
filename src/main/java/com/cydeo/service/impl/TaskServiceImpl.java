@@ -101,4 +101,14 @@ public class TaskServiceImpl implements TaskService {
         });
 
     }
+
+    @Override
+    public List<TaskDTO> findAllTasksByStatusIsNot(Status status) {
+        return null;
+    }
+
+    @Override
+    public List<TaskDTO> findAllTasksByStatus(Status status) {
+        return null;
+    }
 }
