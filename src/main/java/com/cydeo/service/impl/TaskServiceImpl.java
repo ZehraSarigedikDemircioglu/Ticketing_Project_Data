@@ -43,15 +43,19 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void update(TaskDTO task) {
+    public void update(TaskDTO taskDTO) {
 
         // Find current user
-        Optional<Task> task1 = taskRepository.findById(task.getId());
+        Optional<Task> task1 = taskRepository.findById(taskDTO.getId());
         // Map update user dto to entity object
-        Task convertedTask = taskMapper.convertToEntity(task);
+        Task convertedTask = taskMapper.convertToEntity(taskDTO);
         // Set id to the converted object
-        convertedTask.setTaskStatus(task1.get().getTaskStatus());
-        convertedTask.setAssignedDate(task1.get().getAssignedDate());
+
+        if(task1.isPresent()){
+            convertedTask.setTaskStatus(taskDTO.getTaskStatus() == null ? task1.get().getTaskStatus() : taskDTO.getTaskStatus());
+            convertedTask.setAssignedDate(task1.get().getAssignedDate());
+            taskRepository.save(convertedTask);
+        }
         // Save the updated user in the db
         taskRepository.save(convertedTask);
     }
@@ -84,5 +88,17 @@ public class TaskServiceImpl implements TaskService {
         Project project = projectMapper.convertToEntity(projectDTO);
         List<Task> tasks = taskRepository.findAllByProject(project);
         tasks.forEach(task -> delete(task.getId()));
+    }
+
+    @Override
+    public void completeByProject(ProjectDTO projectDTO) {
+
+        Project project = projectMapper.convertToEntity(projectDTO);
+        List<Task> tasks = taskRepository.findAllByProject(project);
+        tasks.stream().map(taskMapper::convertToDTO).forEach(taskDTO -> {
+            taskDTO.setTaskStatus(Status.COMPLETE);
+            update(taskDTO);
+        });
+
     }
 }
