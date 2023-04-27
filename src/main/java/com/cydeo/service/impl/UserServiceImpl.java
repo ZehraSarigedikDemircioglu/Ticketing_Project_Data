@@ -34,13 +34,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> listAllUsers() {
 
-        List<User> userList = userRepository.findAll(Sort.by("firstName"));
+        List<User> userList = userRepository.findAllByIsDeletedOrderByFirstNameDesc(false);
         return userList.stream().map(userMapper::convertToDTO).collect(Collectors.toList());
     }
 
     @Override
     public UserDTO findByUserName(String username) {
-        return userMapper.convertToDTO(userRepository.findByUserName(username));
+        return userMapper.convertToDTO(userRepository.findByUserNameAndIsDeleted(username, false));
     }
 
     @Override
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO update(UserDTO user) {
 
         // Find current user
-        User user1 = userRepository.findByUserName(user.getUserName()); // has id
+        User user1 = userRepository.findByUserNameAndIsDeleted(user.getUserName(), false); // has id
         // Map update user dto to entity object
         User convertedUser = userMapper.convertToEntity(user);
         // Set id to the converted object
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
         // change the isDeleted field from base entity to change as true
         // save the object in the db
 
-        User user = userRepository.findByUserName(username);
+        User user = userRepository.findByUserNameAndIsDeleted(username, false);
 
         if (checkIfUserCanBeDeleted(user)) {
             user.setIsDeleted(true);
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> listAllByRole(String role) {
 
-        return userRepository.findByRoleDescriptionIgnoreCase(role).stream().map(userMapper::convertToDTO).collect(Collectors.toList());
+        return userRepository.findByRoleDescriptionIgnoreCaseAndIsDeleted(role, false).stream().map(userMapper::convertToDTO).collect(Collectors.toList());
     }
 
     private boolean checkIfUserCanBeDeleted(User user) {
