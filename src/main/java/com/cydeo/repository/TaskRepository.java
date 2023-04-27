@@ -16,5 +16,4 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     int totalCompletedTasks(String projectCode);
 
     List<Task> findAllByProject(Project project);
-
 }
