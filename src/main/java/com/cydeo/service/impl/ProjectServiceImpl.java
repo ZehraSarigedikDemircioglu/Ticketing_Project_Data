@@ -93,7 +93,7 @@ public class ProjectServiceImpl implements ProjectService {
 
         // DB, give me all projects assigned to manager login in the system
 
-        UserDTO currentUserDTO = userService.findByUserName("samantha@manager.com"); // get one of manager from db
+        UserDTO currentUserDTO = userService.findByUserName("harold@manager.com"); // get one of manager from db
         User user = userMapper.convertToEntity(currentUserDTO);
 
         List<Project> list = projectRepository.findByAssignedManager(user);
