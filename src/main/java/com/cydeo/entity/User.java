@@ -14,8 +14,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
-@Where(clause = "is_deleted=false") // any repository which is using User entity, (this project for UserRepository)
+//@Where(clause = "is_deleted=false") // any repository which is using User entity, (this project for UserRepository)
 // whatever queries inside, include that where clause. We do not create to each method ourselves thanks to Spring
+// select * from users where ... and is_deleted = false;
 public class User extends BaseEntity {
 
     private String firstName;
