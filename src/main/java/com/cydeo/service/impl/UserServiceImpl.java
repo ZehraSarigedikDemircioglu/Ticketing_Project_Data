@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
         User user = userRepository.findByUserNameAndIsDeleted(username, false);
 
-        if (checkIfUserCanBeDeleted(user)) {
+        if (checkIfUserCanBeDeleted(user)) { // when we have noncompleted tasks or projects by that user
             user.setIsDeleted(true);
             user.setUserName(user.getUserName() + "-" + user.getId());  // harold@manager.com-2
             userRepository.save(user);
@@ -93,6 +93,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private boolean checkIfUserCanBeDeleted(User user) {
+
         switch (user.getRole().getDescription()) {
             case "Manager":
                 List<ProjectDTO> projectDTOList = projectService.listAllNonCompletedByAssignedManager(userMapper.convertToDTO(user));
