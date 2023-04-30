@@ -81,6 +81,7 @@ public class UserServiceImpl implements UserService {
 
         if (checkIfUserCanBeDeleted(user)) { // when we have noncompleted tasks or projects by that user
             user.setIsDeleted(true);
+            // we can reuse original username
             user.setUserName(user.getUserName() + "-" + user.getId());  // harold@manager.com-2
             userRepository.save(user);
         }
