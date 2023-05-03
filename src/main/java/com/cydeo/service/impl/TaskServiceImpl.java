@@ -59,6 +59,9 @@ public class TaskServiceImpl implements TaskService {
         // Set id to the converted object
 
         if(task1.isPresent()){
+            // if UI status = null, populate from db, or else display UI status
+            // if DTO does not have task status, take it from db based on that task(get existing one)
+            // if we have somehow task status assigned, use that one
             convertedTask.setTaskStatus(taskDTO.getTaskStatus() == null ? task1.get().getTaskStatus() : taskDTO.getTaskStatus());
             convertedTask.setAssignedDate(task1.get().getAssignedDate());
             taskRepository.save(convertedTask);
